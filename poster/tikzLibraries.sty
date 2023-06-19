@@ -1,0 +1,115 @@
+\ProvidesPackage{tikzLibraries}
+
+\usepackage{tikz, tikz-3dplot}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Library
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetikzlibrary{decorations.pathmorphing,decorations.pathreplacing,decorations.markings}
+\usetikzlibrary{shadows,positioning,shapes,arrows,calc,patterns}
+\usetikzlibrary{shapes, shadows.blur, fadings, angles, quotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%define Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{TUBlue}{RGB}{0,95,140}
+\definecolor{TURed}{RGB}{185,40,25}
+\definecolor{TUColdGray}{RGB}{130,140,150}
+\definecolor{TUWarmGray}{RGB}{130,125,120}
+
+\definecolor{TUArchitektur}{RGB}{0,0,0}
+\definecolor{TUBauingenieurwesen}{RGB}{255,89,0}
+\definecolor{TUMaschinenbau}{RGB}{0,160,198}
+\definecolor{TUMathematik}{RGB}{254,192,0}
+\definecolor{TUBiologie}{RGB}{1,147,119}
+\definecolor{TUPhysik}{RGB}{7,43,97}
+\definecolor{TUChemie}{RGB}{230,146,2}
+\definecolor{TURaumplanung}{RGB}{255,140,0}
+\definecolor{TUElektrotechnik}{RGB}{78,188,206}
+\definecolor{TUSozialwissenschaften}{RGB}{82,87,89}
+\definecolor{TUInformatik}{RGB}{71,0,116}
+\definecolor{TUWirtschaftswissenschaften}{RGB}{179,0,13}
+
+\colorlet{TUYellow}{TUMathematik}
+\colorlet{TUGreen}{TUBiologie}
+\colorlet{TUPurple}{TUInformatik}
+
+\definecolor{rptublaugrau}{cmyk}{.70, .44, .30, .15}
+\definecolor{rptugruengrau}{cmyk}{.55, .10, .30, 0}
+\definecolor{rptudunkelblau}{cmyk}{1.00, .85, .40, .30}
+\definecolor{rptuhellblau}{cmyk}{.58, .11, 0, 0}
+\definecolor{rptudunkelgruen}{cmyk}{.85, .30, .50, .25}
+\definecolor{rptuhellgruen}{cmyk}{.56, 0, .58, 0}
+\definecolor{rptuviolett}{cmyk}{.85, .90, .20, 0.08}
+\definecolor{rptupink}{cmyk}{.10, .90, 0, 0}
+\definecolor{rpturot}{cmyk}{0, .95, .55, 0}
+\definecolor{rptuorange}{cmyk}{0, .45, .70, 0}
+\definecolor{rptuschwarz}{cmyk}{0, 0, 0, 1.00}
+\definecolor{rptuweiss}{cmyk}{0, 0, 0, 0}
+
+\colorlet{schiefer}{rptublaugrau}
+\colorlet{ozean}{rptugruengrau}
+\colorlet{nacht}{rptudunkelblau}
+\colorlet{tag}{rptuhellblau}
+\colorlet{petrol}{rptudunkelgruen}
+\colorlet{apfel}{rptuhellgruen}
+\colorlet{pflaume}{rptuviolett}
+\colorlet{fuchsia}{rptupink}
+\colorlet{himbeere}{rpturot}
+\colorlet{mango}{rptuorange}
+
+\colorlet{red}{himbeere}
+\colorlet{green}{apfel}
+\colorlet{blue}{tag}
+\colorlet{violet}{pflaume}
+\colorlet{orange}{mango}
+
+
+%define mpl colors
+%https://matplotlib.org/users/dflt_style_changes.html
+\definecolor{C0}{HTML}{1F77B4}	%blue
+\definecolor{C1}{HTML}{FF7F0E}	%orange
+\definecolor{C2}{HTML}{2CA02C}	%green
+\definecolor{C3}{HTML}{D62728}	%red	
+\definecolor{C4}{HTML}{9467BD}	%purple
+\definecolor{C5}{HTML}{8C564B}	%brown
+\definecolor{C6}{HTML}{E377C2}	%pink
+\definecolor{C7}{HTML}{7F7F7F}	%gray
+\definecolor{C8}{HTML}{BCBD22}	%yellow
+\definecolor{C9}{HTML}{17BECF}	%light blue
+
+%html = hex!
+\colorlet{lightColorPurple}{C4}
+%\definecolor{lightColorPurple}{HTML}{9467bd}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Tikz commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\TikzInnerSep}{0.33mm}
+
+\def\centerarc[#1](#2)(#3:#4:#5){%
+    \draw [#1] ($(#2)+({#5*cos(#3)}, {#5*sin(#3)})$) arc (#3:#4:#5)%
+}
+
+\tikzset{
+	>=latex,
+	level/.style={very thick},
+	trans/.style={thick,<->,shorten >=1pt, shorten <=1pt},
+	light/.style={thick,->,style={decorate, decoration={snake,post length=2mm}}},
+	decay/.style={thick,->,shorten >=1pt,decorate, decoration={snake,post length=2mm}},
+	cable/.style={gray!80,line width=0.4mm,postaction={decorate,decoration={markings
+	,mark=at position 0 with {\fill[black] (0,0.05) rectangle (0.2,-0.05);}
+    ,mark=at position 0.9999 with {\fill[black] (0,0.05) rectangle (-0.2,-0.05);}
+    %,mark=at position 0.75 with {\arrow{>}}
+    }}},
+    depl/.style={#1,fill=#1!20,fill opacity=.6},
+    depl/.default=red,
+}
+
+\tikzset{xcenter around/.style 2 args={execute at end picture={%
+  \useasboundingbox let \p0 = (current bounding box.south west), \p1 = (current bounding box.north east),
+                        \p2 = (#1), \p3 = (#2)
+                    in
+        ({min(\x2 + \x3 - \x1,\x0)},\y0) rectangle ({max(\x3 + \x2 - \x0,\x1)},\y1);
+}}}
+

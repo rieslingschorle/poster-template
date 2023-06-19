@@ -1,0 +1,190 @@
+\documentclass[
+  %draft,
+  a0paper,
+  portrait,
+  fontscale=.35 % scales inversely (larger value=smaller font). Default is 0.292. Also affects Title etc!
+  ]{baposter} 
+
+
+\usepackage{tikz}
+\usepackage{graphicx}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{svg.path}
+
+% use PT sans font
+
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage[no-math]{fontspec}		%Font im Mathmode wird weiter unten gesetzt
+\setmainfont{Red Hat Text}				%Uni-Schriftart
+\setsansfont{Red Hat Text}
+
+\usepackage[utf8]{inputenc}			%Umlaute
+
+\usepackage{amsmath}				%Mehr Mathe-Funktionen
+\usepackage{mathspec}				%Mehr Kontrolle über Mathmode-Formatierungen
+\setmathsfont(Digits){Red Hat Text}		%PT Sans im Mathmode\phantom{sp} 
+\setmathsfont(Latin){Red Hat Text}
+\setmathrm{Red Hat Text}
+
+\usepackage{xfrac}					%schöne, diagonale Bruchstriche
+\usepackage{braket}					%Bras und Kets
+\usepackage{derivative}
+
+\usepackage{graphbox}				%enable centered alignment of image to text
+
+% Global Color Definitions
+%
+
+\definecolor{rptublaugrau}{cmyk}{.70, .44, .30, .15}
+\definecolor{rptugruengrau}{cmyk}{.55, .10, .30, 0}
+\definecolor{rptudunkelblau}{cmyk}{1.00, .85, .40, .30}
+\definecolor{rptuhellblau}{cmyk}{.58, .11, 0, 0}
+\definecolor{rptudunkelgruen}{cmyk}{.85, .30, .50, .25}
+\definecolor{rptuhellgruen}{cmyk}{.56, 0, .58, 0}
+\definecolor{rptuviolett}{cmyk}{.85, .90, .20, 0.08}
+\definecolor{rptupink}{cmyk}{.10, .90, 0, 0}
+\definecolor{rpturot}{cmyk}{0, .95, .55, 0}
+\definecolor{rptuorange}{cmyk}{0, .45, .70, 0}
+\definecolor{rptuschwarz}{cmyk}{0, 0, 0, 1.00}
+\definecolor{rptuweiss}{cmyk}{0, 0, 0, 0}
+
+\colorlet{schiefer}{rptublaugrau}
+\colorlet{ozean}{rptugruengrau}
+\colorlet{nacht}{rptudunkelblau}
+\colorlet{tag}{rptuhellblau}
+\colorlet{petrol}{rptudunkelgruen}
+\colorlet{apfel}{rptuhellgruen}
+\colorlet{pflaume}{rptuviolett}
+\colorlet{fuchsia}{rptupink}
+\colorlet{himbeere}{rpturot}
+\colorlet{mango}{rptuorange}
+
+\let\OLDitemize\itemize
+\renewcommand\itemize{\OLDitemize\setlength{\itemsep}{0.1em}}
+
+%choose your poster colors here:
+%todo choose pair color automatically
+\colorlet{color_background}{mango}
+\colorlet{color_accents}{himbeere}
+
+
+\tikzstyle{logobox} = [draw=rptuweiss, fill=rptuweiss, thin,
+    rectangle, inner sep=10pt, inner ysep=20pt, minimum width=10cm,
+                        minimum height = 3cm]
+
+\tikzstyle{titelbox} = [draw=rptuweiss, fill=rptuweiss, thin,
+    rectangle, inner sep=10pt, inner ysep=20pt, minimum width=20cm,
+                        minimum height = 3cm]
+
+\begin{document}
+
+\background{
+  \begin{tikzpicture}[remember picture,overlay]%
+%carshitbrown] ([yshift=5em] current page.south west) rectangle ([yshift=4em]current page.south east);
+    %the header
+    \fill [fill=color_background] (current page.north west) rectangle (current page.south east);
+    %\node [logobox] (logobox) at ($(current page.north west)+(4cm,-2.25cm)$){};
+    %\node [titelbox] (titelbox) at ($(current page.north west)+(+19.5cm,-2.25cm)$){};
+  \end{tikzpicture}
+}
+
+\begin{poster}{
+    %general options for the poster
+    %grid=true,
+    grid=false,
+    columns=3,
+    %  colspacing=4.2mm,
+    headerheight=0.1\textheight,
+    background=user,
+    eyecatcher=true,
+    boxpadding=2em,
+    %posterbox options
+    headerborder=open,
+    borderColor=color_background,
+    headershape=rectangle,
+    headershade=plain,
+    %headerColorOne=mango!50,
+    headerColorOne=rptuweiss,
+    %  headerColortwo=yellow!42, %is used when the header background is shaded
+    textborder=roundedright,
+    boxshade=plain,
+    boxColorOne=rptuweiss,
+    %  boxColorTwo=cyan!42,%is used when the text background is shaded
+    headerFontColor=color_accents,
+    headerfont=\Large\sf\bf,
+    linewidth=1pt
+  }
+  {
+  \input{header}
+  }
+  %the poster title
+  {%
+  \color{rptuweiss}\bf \LARGE%
+  Something with mathematics
+  }
+  %the author(s)
+  {\color{rptuweiss}\large%
+	Coco, Coco Loco, Corinna %
+  }
+  %the logo (the logo on the top right)
+  {
+    
+  }
+  
+  \headerbox{}%
+  {name=foot, column=0, span=3, above=bottom,textborder=none,headerborder=none,boxheaderheight=0pt, boxshade=none}
+  {\hfill \vspace{0.5em}  \hfill \color{white} \huge www.coco.loco \hfill \hfill \raisebox{-0.5em}{} \hspace{0.75em} \raisebox{-0.25em}{} \vspace{-0.5em}}
+  
+  %====================================================================================%  
+% Introduction box spanning all columns
+\begin{posterbox}[name=intro,column=0,row=0, span=3]{Introduction}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{imgs/coco_loco.jpg}
+	\end{center}
+\end{posterbox}
+
+%====================================================================================%  
+% left
+\begin{posterbox}[name=assumption,column=0,row=1, below=intro]{Assumption}
+	\textbf{Some mathematics stuff}
+	\vspace{4cm}
+	\begin{center}
+		\includegraphics[width=\textwidth]{imgs/coco_affe.jpg}
+	\end{center}
+	\vspace{5cm}
+\end{posterbox}
+
+
+%====================================================================================%  
+% center
+\begin{posterbox}[name=proof,column=1,row=1, below=intro]{Proof}
+	\textbf{Something something in the month of May}
+	\vspace{5cm}
+\end{posterbox}
+
+\begin{posterbox}[name=imgs,column=1,row=1, below=proof, bottomaligned=assumption]{Nice pictures}
+	\textbf{This box is bottom aligned with "assumptions"}
+\end{posterbox}
+
+%====================================================================================%  
+% right
+\begin{posterbox}[name=alc,column=2,row=1, below=intro]{I don't know}
+	\textbf{Schorle?}
+	\begin{itemize}
+		\item Warum gibts nur schöne Bilder mit rosé Schorle?
+	\end{itemize}
+	\includegraphics[width=\textwidth]{imgs/schorle.jpg}
+	\vspace{3cm}
+\end{posterbox}
+
+\begin{posterbox}[name=rating ,column=2,row=1, below=alc, bottomaligned=assumption]{Rating}
+	\begin{center}
+		\includegraphics[width=0.5\textwidth]{imgs/10_10.jpeg}
+	\end{center}
+\end{posterbox}
+
+
+\end{poster}
+\end{document}
